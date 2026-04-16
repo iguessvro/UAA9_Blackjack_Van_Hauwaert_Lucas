@@ -26,9 +26,9 @@
               "Title": "Program.cs",
               "DocumentMoniker": "H:\\UAA9\\Blackjack\\BlackjackManipulationsCartes\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "H:\\UAA9\\Blackjack\\BlackjackManipulationsCartes\\Program.cs*",
-              "RelativeToolTip": "Program.cs*",
-              "ViewState": "AgIAACgAAAAAAAAAAAAgwAwAAAAgAAAAAAAAAA==",
+              "ToolTip": "H:\\UAA9\\Blackjack\\BlackjackManipulationsCartes\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAgwCwAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-09T13:50:12.872Z",
               "EditorCaption": ""
@@ -41,9 +41,10 @@
               "RelativeDocumentMoniker": "InfoCard.cs",
               "ToolTip": "H:\\UAA9\\Blackjack\\BlackjackManipulationsCartes\\InfoCard.cs",
               "RelativeToolTip": "InfoCard.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-30T13:00:20.818Z"
+              "WhenOpened": "2026-03-30T13:00:20.818Z",
+              "EditorCaption": ""
             }
           ]
         }

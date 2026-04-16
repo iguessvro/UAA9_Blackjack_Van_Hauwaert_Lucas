@@ -6,20 +6,20 @@ namespace BlackjackManipulationsCartes
     {
         static void Main(string[] args)
         {
-            string[] cartesValeurs = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
+            string[] cartesValeurs = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
             string[] cartesCouleurs = { "♠", "♥", "♦", "♣" };
             List<InfoCard> deck = new List<InfoCard>();
             string carte = "";
-            int pointsTotal = 12;
+            int pointsTotal = 0;
             int points = 0;
             string infoUser;
             InfoCard card;
             string visuelCarte = "";
-            InfoCard iguessvro;
+            bool burn = false;
 
             Console.WriteLine("hi");
 
-            CreerDeck(cartesValeurs, cartesCouleurs, carte, ref deck, out iguessvro);
+            CreerDeck(cartesValeurs, cartesCouleurs, carte, ref deck);
             ShuffleDeck(ref deck);
 
             ConsoleKeyInfo key = new ConsoleKeyInfo('\0', ConsoleKey.NoName, false, false, false);
@@ -31,7 +31,7 @@ namespace BlackjackManipulationsCartes
 
                 if (key.KeyChar == 'h')
                 {
-                    PiocherCarte(ref deck, iguessvro, visuelCarte, points, pointsTotal, out card);
+                    PiocherCarte(ref deck, points, pointsTotal, burn, out card);
                 }
                 else if (key.KeyChar == 's')
                 {
@@ -47,10 +47,10 @@ namespace BlackjackManipulationsCartes
             //CompterPointsTest(ref deck, out points);
             //Console.WriteLine(points);
         }
-        static void CreerDeck(string[] cartesValeurs, string[] cartesCouleurs, string carte, ref List<InfoCard> deck, out InfoCard iguessvro)
+        static void CreerDeck(string[] cartesValeurs, string[] cartesCouleurs, string carte, ref List<InfoCard> deck)
         {
             deck.Clear();
-            iguessvro = default;
+            InfoCard iguessvro = default;
 
             //creation deck
             for (int i = 0; i < cartesValeurs.Length; i++)
@@ -92,10 +92,11 @@ namespace BlackjackManipulationsCartes
                 deck[j] = temp;
             }
         }
-        static void PiocherCarte(ref List<InfoCard> deck, InfoCard iguessvro, string visuelCarte, int points, int pointsTotal, out InfoCard card)
+        static void PiocherCarte(ref List<InfoCard> deck, int points, int pointsTotal, bool burn, out InfoCard card)
         {
             card = default;
             bool vide = false;
+            string visuelCarte;
 
             ConsoleKeyInfo key = new ConsoleKeyInfo('\0', ConsoleKey.NoName, false, false, false);
 
@@ -108,11 +109,21 @@ namespace BlackjackManipulationsCartes
                     card = deck[placeCarte];
                     deck.RemoveAt(placeCarte);
 
-                    CompterPointsTest(ref deck, card, iguessvro, pointsTotal, out points);
-                    AfficherCarte(ref deck, iguessvro, card,  out visuelCarte);
+                    CompterPoints(card, pointsTotal, out points);
+
+                    pointsTotal = pointsTotal + points;
+
+                    AfficherCarte(card, out visuelCarte);
 
                     Console.WriteLine(visuelCarte);
-                    Console.WriteLine(points);
+                    Console.WriteLine("points de la carte = " + points + "\npoints totaux = " + pointsTotal + "\n");
+
+                    if (pointsTotal > 21)
+                    {
+                        burn = true;
+
+                        Console.WriteLine("\nyou burned");
+                    }
 
                     Console.WriteLine("Press h to hit again");
                     key = Console.ReadKey(true);
@@ -125,43 +136,15 @@ namespace BlackjackManipulationsCartes
 
             } while (!vide && key.KeyChar == 'h');
         }
-        /*static void CompterPoints(in string carteValeur, string carte, out int points)
-        {
-            string infoUser;
-            points = 0;
-
-            if (carteValeur == "2" || carteValeur == "3" || carteValeur == "4" || carteValeur == "5" || carteValeur == "6" || carteValeur == "7" || carteValeur == "8" || carteValeur == "9" || carteValeur == "10")
-            {
-                int.TryParse(carteValeur, out points);
-            }
-            else if (carteValeur == "J" || carteValeur == "Q" || carteValeur == "K")
-            {
-                points = 10;
-            }
-            else if (carteValeur == "A")
-            {
-                Console.WriteLine("card = 1 ou 11 ? \n type 1 for 1, anything else for 11");
-                infoUser = Console.ReadLine();
-
-                if (infoUser == "1")
-                {
-                    points = 1;
-                }
-                else
-                {
-                    points = 11;
-                }
-            }
-        }*/
-        static void CompterPointsTest(ref List<InfoCard> deck, InfoCard card, InfoCard iguessvro, in int pointsTotal, out int points)
+        static void CompterPoints(InfoCard card, int pointsTotal, out int points)
         {
             points = 0;
 
-            if (iguessvro.carteValeur == "J" || iguessvro.carteValeur == "Q" || iguessvro.carteValeur == "K")
+            if (card.carteValeur == "J" || card.carteValeur == "Q" || card.carteValeur == "K")
             {
                 points = 10;
             }
-            else if (iguessvro.carteValeur == "A")
+            else if (card.carteValeur == "A")
             {
                 if (pointsTotal <= 10)
                 {
@@ -174,24 +157,22 @@ namespace BlackjackManipulationsCartes
             }
             else
             {
-                int.TryParse(iguessvro.carteValeur, out points);
+                int.TryParse(card.carteValeur, out points);
             }
         }
-        static void AfficherCarte(ref List<InfoCard> deck, InfoCard card, InfoCard iguessvro, out string visuelCarte)
+        static void AfficherCarte(InfoCard card, out string visuelCarte)
         {
             visuelCarte = "";
-            card = default;
-
 
             //affichage carte
 
-            if (iguessvro.carteValeur == "10")
+            if (card.carteValeur == "10")
             {
-                visuelCarte = " +----+ \n |    | \n | " + iguessvro.carteValeur + iguessvro.carteCouleur + "| \n |    | \n +----+";
+                visuelCarte = " +----+ \n |    | \n | " + card.carteValeur + card.carteCouleur + "| \n |    | \n +----+";
             }
             else
             {
-                visuelCarte = " +----+ \n |    | \n | " + iguessvro.carteValeur + iguessvro.carteCouleur + " | \n |    | \n +----+";
+                visuelCarte = " +----+ \n |    | \n | " + card.carteValeur + card.carteCouleur + " | \n |    | \n +----+";
             }
         }
     }
