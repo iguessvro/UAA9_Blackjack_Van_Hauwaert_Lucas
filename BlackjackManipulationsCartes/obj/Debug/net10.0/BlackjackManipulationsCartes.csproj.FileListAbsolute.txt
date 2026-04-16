@@ -1,0 +1,14 @@
+H:\UAA9\Blackjack\BlackjackManipulationsCartes\bin\Debug\net10.0\BlackjackManipulationsCartes.exe
+H:\UAA9\Blackjack\BlackjackManipulationsCartes\bin\Debug\net10.0\BlackjackManipulationsCartes.deps.json
+H:\UAA9\Blackjack\BlackjackManipulationsCartes\bin\Debug\net10.0\BlackjackManipulationsCartes.runtimeconfig.json
+H:\UAA9\Blackjack\BlackjackManipulationsCartes\bin\Debug\net10.0\BlackjackManipulationsCartes.dll
+H:\UAA9\Blackjack\BlackjackManipulationsCartes\bin\Debug\net10.0\BlackjackManipulationsCartes.pdb
+H:\UAA9\Blackjack\BlackjackManipulationsCartes\obj\Debug\net10.0\BlackjackManipulationsCartes.GeneratedMSBuildEditorConfig.editorconfig
+H:\UAA9\Blackjack\BlackjackManipulationsCartes\obj\Debug\net10.0\BlackjackManipulationsCartes.AssemblyInfoInputs.cache
+H:\UAA9\Blackjack\BlackjackManipulationsCartes\obj\Debug\net10.0\BlackjackManipulationsCartes.AssemblyInfo.cs
+H:\UAA9\Blackjack\BlackjackManipulationsCartes\obj\Debug\net10.0\BlackjackManipulationsCartes.csproj.CoreCompileInputs.cache
+H:\UAA9\Blackjack\BlackjackManipulationsCartes\obj\Debug\net10.0\BlackjackManipulationsCartes.dll
+H:\UAA9\Blackjack\BlackjackManipulationsCartes\obj\Debug\net10.0\refint\BlackjackManipulationsCartes.dll
+H:\UAA9\Blackjack\BlackjackManipulationsCartes\obj\Debug\net10.0\BlackjackManipulationsCartes.pdb
+H:\UAA9\Blackjack\BlackjackManipulationsCartes\obj\Debug\net10.0\BlackjackManipulationsCartes.genruntimeconfig.cache
+H:\UAA9\Blackjack\BlackjackManipulationsCartes\obj\Debug\net10.0\ref\BlackjackManipulationsCartes.dll

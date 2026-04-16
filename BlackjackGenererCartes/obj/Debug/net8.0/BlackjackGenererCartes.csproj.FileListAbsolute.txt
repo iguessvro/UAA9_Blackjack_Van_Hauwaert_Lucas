@@ -1,0 +1,14 @@
+H:\UAA9\Blackjack\BlackjackGenererCartes\bin\Debug\net8.0\BlackjackGenererCartes.exe
+H:\UAA9\Blackjack\BlackjackGenererCartes\bin\Debug\net8.0\BlackjackGenererCartes.deps.json
+H:\UAA9\Blackjack\BlackjackGenererCartes\bin\Debug\net8.0\BlackjackGenererCartes.runtimeconfig.json
+H:\UAA9\Blackjack\BlackjackGenererCartes\bin\Debug\net8.0\BlackjackGenererCartes.dll
+H:\UAA9\Blackjack\BlackjackGenererCartes\bin\Debug\net8.0\BlackjackGenererCartes.pdb
+H:\UAA9\Blackjack\BlackjackGenererCartes\obj\Debug\net8.0\BlackjackGenererCartes.GeneratedMSBuildEditorConfig.editorconfig
+H:\UAA9\Blackjack\BlackjackGenererCartes\obj\Debug\net8.0\BlackjackGenererCartes.AssemblyInfoInputs.cache
+H:\UAA9\Blackjack\BlackjackGenererCartes\obj\Debug\net8.0\BlackjackGenererCartes.AssemblyInfo.cs
+H:\UAA9\Blackjack\BlackjackGenererCartes\obj\Debug\net8.0\BlackjackGenererCartes.csproj.CoreCompileInputs.cache
+H:\UAA9\Blackjack\BlackjackGenererCartes\obj\Debug\net8.0\BlackjackGenererCartes.dll
+H:\UAA9\Blackjack\BlackjackGenererCartes\obj\Debug\net8.0\refint\BlackjackGenererCartes.dll
+H:\UAA9\Blackjack\BlackjackGenererCartes\obj\Debug\net8.0\BlackjackGenererCartes.pdb
+H:\UAA9\Blackjack\BlackjackGenererCartes\obj\Debug\net8.0\BlackjackGenererCartes.genruntimeconfig.cache
+H:\UAA9\Blackjack\BlackjackGenererCartes\obj\Debug\net8.0\ref\BlackjackGenererCartes.dll

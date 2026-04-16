@@ -1,0 +1,14 @@
+H:\UAA9\Blackjack\BlackjackCompterPoints\bin\Debug\net8.0\BlackjackCompterPoints.exe
+H:\UAA9\Blackjack\BlackjackCompterPoints\bin\Debug\net8.0\BlackjackCompterPoints.deps.json
+H:\UAA9\Blackjack\BlackjackCompterPoints\bin\Debug\net8.0\BlackjackCompterPoints.runtimeconfig.json
+H:\UAA9\Blackjack\BlackjackCompterPoints\bin\Debug\net8.0\BlackjackCompterPoints.dll
+H:\UAA9\Blackjack\BlackjackCompterPoints\bin\Debug\net8.0\BlackjackCompterPoints.pdb
+H:\UAA9\Blackjack\BlackjackCompterPoints\obj\Debug\net8.0\BlackjackCompterPoints.GeneratedMSBuildEditorConfig.editorconfig
+H:\UAA9\Blackjack\BlackjackCompterPoints\obj\Debug\net8.0\BlackjackCompterPoints.AssemblyInfoInputs.cache
+H:\UAA9\Blackjack\BlackjackCompterPoints\obj\Debug\net8.0\BlackjackCompterPoints.AssemblyInfo.cs
+H:\UAA9\Blackjack\BlackjackCompterPoints\obj\Debug\net8.0\BlackjackCompterPoints.csproj.CoreCompileInputs.cache
+H:\UAA9\Blackjack\BlackjackCompterPoints\obj\Debug\net8.0\BlackjackCompterPoints.dll
+H:\UAA9\Blackjack\BlackjackCompterPoints\obj\Debug\net8.0\refint\BlackjackCompterPoints.dll
+H:\UAA9\Blackjack\BlackjackCompterPoints\obj\Debug\net8.0\BlackjackCompterPoints.pdb
+H:\UAA9\Blackjack\BlackjackCompterPoints\obj\Debug\net8.0\BlackjackCompterPoints.genruntimeconfig.cache
+H:\UAA9\Blackjack\BlackjackCompterPoints\obj\Debug\net8.0\ref\BlackjackCompterPoints.dll
