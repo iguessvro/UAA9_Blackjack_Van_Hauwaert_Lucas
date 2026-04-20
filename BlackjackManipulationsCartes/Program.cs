@@ -8,14 +8,18 @@ namespace BlackjackManipulationsCartes
         {
             string[] cartesValeurs = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
             string[] cartesCouleurs = { "♠", "♥", "♦", "♣" };
-            List<InfoCard> deck = new List<InfoCard>();
+            string visuelCarte = "";
             string carte = "";
+            string infoUser;
+            int centerColumn = Console.WindowWidth / 2;
             int pointsTotal = 0;
             int points = 0;
-            string infoUser;
-            InfoCard card;
-            string visuelCarte = "";
             bool burn = false;
+            List<InfoCard> deck = new List<InfoCard>();
+            InfoCard croupierHand = default;
+            InfoCard playerHand = default;
+            InfoCard playerHand2 = default;
+            InfoCard card;
 
             Console.WriteLine("hi");
 
@@ -31,7 +35,36 @@ namespace BlackjackManipulationsCartes
 
                 if (key.KeyChar == 'h')
                 {
-                    PiocherCarte(ref deck, points, pointsTotal, burn, out card);
+                    PiocherCarte(ref deck, pointsTotal, burn, out card, out points);
+
+                    pointsTotal = pointsTotal + points;
+
+                    Console.WriteLine("points de la carte = " + points + "\npoints totaux = " + pointsTotal + "\n");
+
+                    Console.WriteLine("Press h to hit again or s to stand");
+                    key = Console.ReadKey(true);
+
+                    do
+                    {
+                        PiocherCarte(ref deck, pointsTotal, burn, out card, out points);
+
+                        pointsTotal = pointsTotal + points;
+
+                        Console.WriteLine("points de la carte = " + points + "\npoints totaux = " + pointsTotal + "\n");
+
+                        Console.WriteLine("Press h to hit again or s to stand");
+                        key = Console.ReadKey(true);
+
+                        if (pointsTotal > 21)
+                        {
+                            burn = true;
+
+                            Console.WriteLine("you burned");
+                        }
+
+                    } while (key.KeyChar == 'h' && !burn);
+
+                    Console.WriteLine("points de la carte = " + points + "\npoints totaux = " + pointsTotal + "\n");
                 }
                 else if (key.KeyChar == 's')
                 {
@@ -92,16 +125,17 @@ namespace BlackjackManipulationsCartes
                 deck[j] = temp;
             }
         }
-        static void PiocherCarte(ref List<InfoCard> deck, int points, int pointsTotal, bool burn, out InfoCard card)
+        static void PiocherCarte(ref List<InfoCard> deck, int pointsTotal, bool burn, out InfoCard card, out int points)
         {
             card = default;
             bool vide = false;
             string visuelCarte;
+            points = 0;
 
             ConsoleKeyInfo key = new ConsoleKeyInfo('\0', ConsoleKey.NoName, false, false, false);
 
-            do
-            {
+            /*do
+            {*/
                 if (deck.Count > 0)
                 {
                     Random alea = new Random();
@@ -111,12 +145,10 @@ namespace BlackjackManipulationsCartes
 
                     CompterPoints(card, pointsTotal, out points);
 
-                    pointsTotal = pointsTotal + points;
-
                     AfficherCarte(card, out visuelCarte);
 
                     Console.WriteLine(visuelCarte);
-                    Console.WriteLine("points de la carte = " + points + "\npoints totaux = " + pointsTotal + "\n");
+                    
 
                     if (pointsTotal > 21)
                     {
@@ -124,9 +156,12 @@ namespace BlackjackManipulationsCartes
 
                         Console.WriteLine("\nyou burned");
                     }
+                    /*else
+                    {
+                        Console.WriteLine("Press h to hit again");
+                        key = Console.ReadKey(true);
+                    }*/
 
-                    Console.WriteLine("Press h to hit again");
-                    key = Console.ReadKey(true);
                 }
                 else
                 {
@@ -134,7 +169,7 @@ namespace BlackjackManipulationsCartes
                     vide = true;
                 }
 
-            } while (!vide && key.KeyChar == 'h');
+            /*} while (!vide && burn == false);*/
         }
         static void CompterPoints(InfoCard card, int pointsTotal, out int points)
         {
