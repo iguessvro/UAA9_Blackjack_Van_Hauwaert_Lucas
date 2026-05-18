@@ -14,19 +14,39 @@ namespace BlackjackManipulationsCartes
             int centerColumn = Console.WindowWidth / 2;
             int pointsTotal = 0;
             int points = 0;
+            int points1 = 0;
+            int points2 = 0;
             bool burn = false;
             List<InfoCard> deck = new List<InfoCard>();
             InfoCard croupierHand = default;
             InfoCard playerHand = default;
             InfoCard playerHand2 = default;
             InfoCard card;
+            InfoCard card1;
+            InfoCard card2;
 
-            Console.WriteLine("hi");
+            Console.WriteLine("BLACKJACK");
 
             CreerDeck(cartesValeurs, cartesCouleurs, carte, ref deck);
             ShuffleDeck(ref deck);
 
             ConsoleKeyInfo key = new ConsoleKeyInfo('\0', ConsoleKey.NoName, false, false, false);
+
+            PiocherPremiereMainCroupier(ref deck, out card, out points1, out pointsTotal);
+
+            pointsTotal = pointsTotal + points;
+
+            Console.WriteLine(" points totaux = " + pointsTotal + "\n");
+
+            Console.WriteLine("\n \n \n");
+
+            PiocherPremiereMainJoueur(ref deck, out card1, out card2, out points1, out points2, out pointsTotal);
+
+            pointsTotal = pointsTotal + points;
+
+            Console.WriteLine(" points totaux = " + pointsTotal + "\n");
+
+            
 
             do
             {
@@ -125,6 +145,53 @@ namespace BlackjackManipulationsCartes
                 deck[j] = temp;
             }
         }
+        static void PiocherPremiereMainCroupier(ref List<InfoCard> deck, out InfoCard card, out int points, out int pointsTotal)
+        {
+            string visuelCartes;
+            pointsTotal = 0;
+
+            Random alea = new Random();
+            int placeCarte = alea.Next(deck.Count - 1);
+            card = deck[placeCarte];
+            deck.RemoveAt(placeCarte);
+
+            CompterPoints(card, pointsTotal, out points);
+
+            pointsTotal = pointsTotal + points;
+
+            Console.WriteLine("\n Main du croupier");
+
+            AfficherCartesCroupier(card, out visuelCartes);
+
+            Console.WriteLine(visuelCartes);
+        }
+        static void PiocherPremiereMainJoueur(ref List<InfoCard> deck, out InfoCard card1, out InfoCard card2, out int points1, out int points2, out int pointsTotal)
+        {
+            string visuelCartes;
+            pointsTotal = 0;
+
+            Random alea = new Random();
+            int placeCarte = alea.Next(deck.Count - 1);
+            card1 = deck[placeCarte];
+            deck.RemoveAt(placeCarte);
+
+            CompterPoints(card1, pointsTotal, out points1);
+
+            alea = new Random();
+            placeCarte = alea.Next(deck.Count - 1);
+            card2 = deck[placeCarte];
+            deck.RemoveAt(placeCarte);
+
+            CompterPoints(card2, pointsTotal, out points2);
+
+            pointsTotal = points1 + points2;
+
+            Console.WriteLine(" Votre main");
+
+            AfficherCartesDebut(card1, card2, out visuelCartes);
+
+            Console.WriteLine(visuelCartes);
+        }
         static void PiocherCarte(ref List<InfoCard> deck, int pointsTotal, bool burn, out InfoCard card, out int points)
         {
             card = default;
@@ -156,12 +223,6 @@ namespace BlackjackManipulationsCartes
 
                         Console.WriteLine("\nyou burned");
                     }
-                    /*else
-                    {
-                        Console.WriteLine("Press h to hit again");
-                        key = Console.ReadKey(true);
-                    }*/
-
                 }
                 else
                 {
@@ -193,6 +254,37 @@ namespace BlackjackManipulationsCartes
             else
             {
                 int.TryParse(card.carteValeur, out points);
+            }
+        }
+        static void AfficherCartesDebut(InfoCard card1, InfoCard card2, out string visuelCartes)
+        {
+
+            if (card1.carteValeur == "10" && card2.carteValeur != "10")
+            {
+                visuelCartes = " +----+   +----+ \n |    |   |    | \n | " + card1.carteValeur + card1.carteCouleur + "|   | " + card2.carteValeur + card2.carteCouleur + " | \n |    |   |    | \n +----+   +----+ ";
+            }
+            else if (card1.carteValeur != "10" && card2.carteValeur == "10")
+            {
+                visuelCartes = " +----+   +----+ \n |    |   |    | \n | " + card1.carteValeur + card1.carteCouleur + " |   | " + card2.carteValeur + card2.carteCouleur + "| \n |    |   |    | \n +----+   +----+ ";
+            }
+            else if (card1.carteValeur == "10" && card2.carteValeur == "10")
+            {
+                visuelCartes = " +----+   +----+ \n |    |   |    | \n | " + card1.carteValeur + card1.carteCouleur + "|   | " + card2.carteValeur + card2.carteCouleur + "| \n |    |   |    | \n +----+   +----+ ";
+            }
+            else
+            {
+                visuelCartes = " +----+   +----+ \n |    |   |    | \n | " + card1.carteValeur + card1.carteCouleur + " |   | " + card2.carteValeur + card2.carteCouleur + " | \n |    |   |    | \n +----+   +----+ ";
+            }
+        }     
+        static void AfficherCartesCroupier(InfoCard card, out string visuelCartes)
+        {
+            if (card.carteValeur == "10")
+            {
+                visuelCartes = " +----+   +----+ \n |    |   |    | \n | " + card.carteValeur + card.carteCouleur + "|   | ?? | \n |    |   |    | \n +----+   +----+ ";
+            }
+            else
+            {
+                visuelCartes = " +----+   +----+ \n |    |   |    | \n | " + card.carteValeur + card.carteCouleur + " |   | ?? | \n |    |   |    | \n +----+   +----+ ";
             }
         }
         static void AfficherCarte(InfoCard card, out string visuelCarte)
