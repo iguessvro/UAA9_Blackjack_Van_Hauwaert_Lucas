@@ -11,12 +11,13 @@ namespace BlackjackManipulationsCartes
             string visuelCarte = "";
             string carte = "";
             string infoUser;
-            int centerColumn = Console.WindowWidth / 2;
             int pointsTotal = 0;
             int points = 0;
             int points1 = 0;
             int points2 = 0;
             bool burn = false;
+            bool ace = false;
+            bool aceChange = false;
             List<InfoCard> deck = new List<InfoCard>();
             InfoCard croupierHand = default;
             InfoCard playerHand = default;
@@ -32,7 +33,7 @@ namespace BlackjackManipulationsCartes
 
             ConsoleKeyInfo key = new ConsoleKeyInfo('\0', ConsoleKey.NoName, false, false, false);
 
-            PiocherPremiereMainCroupier(ref deck, out card, out points1, out pointsTotal);
+            PiocherPremiereMainCroupier(ref deck, out card, out points1, out pointsTotal, out ace);
 
             pointsTotal = pointsTotal + points;
 
@@ -40,7 +41,7 @@ namespace BlackjackManipulationsCartes
 
             Console.WriteLine("\n \n \n");
 
-            PiocherPremiereMainJoueur(ref deck, out card1, out card2, out points1, out points2, out pointsTotal);
+            PiocherPremiereMainJoueur(ref deck, out card1, out card2, out points1, out points2, out pointsTotal, out ace);
 
             pointsTotal = pointsTotal + points;
 
@@ -55,9 +56,16 @@ namespace BlackjackManipulationsCartes
 
                 if (key.KeyChar == 'h')
                 {
-                    PiocherCarte(ref deck, pointsTotal, burn, out card, out points);
+                    PiocherCarte(ref deck, pointsTotal, burn, out card, out points, ref ace);
 
                     pointsTotal = pointsTotal + points;
+
+                    if (ace == true && pointsTotal > 21)
+                    {
+                        pointsTotal = pointsTotal - 10;
+                        
+                        
+                    }
 
                     Console.WriteLine("points de la carte = " + points + "\npoints totaux = " + pointsTotal + "\n");
 
@@ -66,9 +74,15 @@ namespace BlackjackManipulationsCartes
 
                     do
                     {
-                        PiocherCarte(ref deck, pointsTotal, burn, out card, out points);
+                        PiocherCarte(ref deck, pointsTotal, burn, out card, out points, ref ace);
 
                         pointsTotal = pointsTotal + points;
+
+                        if (ace == true && pointsTotal > 21 && aceChange == false)
+                        {
+                            pointsTotal = pointsTotal - 10;
+                            aceChange = true;
+                        }
 
                         Console.WriteLine("points de la carte = " + points + "\npoints totaux = " + pointsTotal + "\n");
 
@@ -145,15 +159,21 @@ namespace BlackjackManipulationsCartes
                 deck[j] = temp;
             }
         }
-        static void PiocherPremiereMainCroupier(ref List<InfoCard> deck, out InfoCard card, out int points, out int pointsTotal)
+        static void PiocherPremiereMainCroupier(ref List<InfoCard> deck, out InfoCard card, out int points, out int pointsTotal, out bool ace)
         {
             string visuelCartes;
             pointsTotal = 0;
+            ace = false;
 
             Random alea = new Random();
             int placeCarte = alea.Next(deck.Count - 1);
             card = deck[placeCarte];
             deck.RemoveAt(placeCarte);
+
+            if (card.carteValeur == "A")
+            {
+                ace = true;
+            }
 
             CompterPoints(card, pointsTotal, out points);
 
@@ -165,15 +185,21 @@ namespace BlackjackManipulationsCartes
 
             Console.WriteLine(visuelCartes);
         }
-        static void PiocherPremiereMainJoueur(ref List<InfoCard> deck, out InfoCard card1, out InfoCard card2, out int points1, out int points2, out int pointsTotal)
+        static void PiocherPremiereMainJoueur(ref List<InfoCard> deck, out InfoCard card1, out InfoCard card2, out int points1, out int points2, out int pointsTotal, out bool ace)
         {
             string visuelCartes;
             pointsTotal = 0;
+            ace = false;
 
             Random alea = new Random();
             int placeCarte = alea.Next(deck.Count - 1);
             card1 = deck[placeCarte];
             deck.RemoveAt(placeCarte);
+
+            if (card1.carteValeur == "A")
+            {
+                ace = true;
+            }
 
             CompterPoints(card1, pointsTotal, out points1);
 
@@ -181,6 +207,11 @@ namespace BlackjackManipulationsCartes
             placeCarte = alea.Next(deck.Count - 1);
             card2 = deck[placeCarte];
             deck.RemoveAt(placeCarte);
+
+            if (card2.carteValeur == "A")
+            {
+                ace = true;
+            }
 
             CompterPoints(card2, pointsTotal, out points2);
 
@@ -192,7 +223,7 @@ namespace BlackjackManipulationsCartes
 
             Console.WriteLine(visuelCartes);
         }
-        static void PiocherCarte(ref List<InfoCard> deck, int pointsTotal, bool burn, out InfoCard card, out int points)
+        static void PiocherCarte(ref List<InfoCard> deck, int pointsTotal, bool burn, out InfoCard card, out int points, ref bool ace)
         {
             card = default;
             bool vide = false;
@@ -201,36 +232,38 @@ namespace BlackjackManipulationsCartes
 
             ConsoleKeyInfo key = new ConsoleKeyInfo('\0', ConsoleKey.NoName, false, false, false);
 
-            /*do
-            {*/
-                if (deck.Count > 0)
+            if (deck.Count > 0)
+            {
+                Random alea = new Random();
+                int placeCarte = alea.Next(deck.Count - 1);
+                card = deck[placeCarte];
+                deck.RemoveAt(placeCarte);
+
+                if (card.carteValeur == "A")
                 {
-                    Random alea = new Random();
-                    int placeCarte = alea.Next(deck.Count - 1);
-                    card = deck[placeCarte];
-                    deck.RemoveAt(placeCarte);
+                    ace = true;
+                }
 
-                    CompterPoints(card, pointsTotal, out points);
+                CompterPoints(card, pointsTotal, out points);
 
-                    AfficherCarte(card, out visuelCarte);
-
-                    Console.WriteLine(visuelCarte);
+                AfficherCarte(card, out visuelCarte);
+                
+                Console.WriteLine(visuelCarte);
                     
 
-                    if (pointsTotal > 21)
-                    {
-                        burn = true;
-
-                        Console.WriteLine("\nyou burned");
-                    }
-                }
-                else
+                if (pointsTotal > 21)
                 {
-                    Console.WriteLine("The deck is empty");
-                    vide = true;
-                }
+                    burn = true;
 
-            /*} while (!vide && burn == false);*/
+                    Console.WriteLine("\nyou burned");
+                }
+            }
+            else
+            {
+                Console.WriteLine("The deck is empty");
+                vide = true;
+            }
+
         }
         static void CompterPoints(InfoCard card, int pointsTotal, out int points)
         {
