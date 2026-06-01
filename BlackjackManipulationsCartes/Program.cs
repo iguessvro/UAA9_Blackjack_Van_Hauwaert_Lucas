@@ -6,6 +6,8 @@ namespace BlackjackManipulationsCartes
     {
         static void Main(string[] args)
         {
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+
             string[] cartesValeurs = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
             string[] cartesCouleurs = { "♠", "♥", "♦", "♣" };
             string visuelCartesJoueurL1 = "";
@@ -47,7 +49,7 @@ namespace BlackjackManipulationsCartes
 
             ConsoleKeyInfo key = new ConsoleKeyInfo('\0', ConsoleKey.NoName, false, false, false);
 
-            PiocherPremiereMainCroupier(ref deck, out card, out points1, out pointsTotal, out ace, out visuelCartesCroupierL1, out visuelCartesCroupierL2, out visuelCartesCroupierL3, out visuelCartesCroupierL4, out visuelCartesCroupierL5);
+            PiocherPremiereMainCroupier(ref deck, out card, out points1, out pointsTotal, out ace, ref aceChange, out visuelCartesCroupierL1, out visuelCartesCroupierL2, out visuelCartesCroupierL3, out visuelCartesCroupierL4, out visuelCartesCroupierL5);
             Console.WriteLine(visuelCartesCroupierL1);
             Console.WriteLine(visuelCartesCroupierL2);
             Console.WriteLine(visuelCartesCroupierL3);
@@ -60,7 +62,7 @@ namespace BlackjackManipulationsCartes
 
             Console.WriteLine("\n \n \n");
 
-            PiocherPremiereMainJoueur(ref deck, out card1, out card2, out points1, out points2, out pointsTotal, out ace, out visuelCartesJoueurL1, out visuelCartesJoueurL2, out visuelCartesJoueurL3, out visuelCartesJoueurL4, out visuelCartesJoueurL5);
+            PiocherPremiereMainJoueur(ref deck, out card1, out card2, out points1, out points2, out pointsTotal, out ace, ref aceChange, out visuelCartesJoueurL1, out visuelCartesJoueurL2, out visuelCartesJoueurL3, out visuelCartesJoueurL4, out visuelCartesJoueurL5);
             Console.WriteLine(visuelCartesJoueurL1);
             Console.WriteLine(visuelCartesJoueurL2);
             Console.WriteLine(visuelCartesJoueurL3);
@@ -80,7 +82,7 @@ namespace BlackjackManipulationsCartes
 
                 if (key.KeyChar == 'h')
                 {
-                    PiocherCarte(ref deck, pointsTotal, burn, out card, out points, ref ace, out visuelCarteL1, out visuelCarteL2, out visuelCarteL3, out visuelCarteL4, out visuelCarteL5);
+                    PiocherCarte(ref deck, pointsTotal, burn, out card, out points, ref ace, ref aceChange, out visuelCarteL1, out visuelCarteL2, out visuelCarteL3, out visuelCarteL4, out visuelCarteL5);
 
                     pointsTotal = pointsTotal + points;
 
@@ -202,7 +204,7 @@ namespace BlackjackManipulationsCartes
                 deck[j] = temp;
             }
         }
-        static void PiocherPremiereMainCroupier(ref List<InfoCard> deck, out InfoCard card, out int points, out int pointsTotal, out bool ace, out string visuelCartesCroupierL1, out string visuelCartesCroupierL2, out string visuelCartesCroupierL3, out string visuelCartesCroupierL4, out string visuelCartesCroupierL5)
+        static void PiocherPremiereMainCroupier(ref List<InfoCard> deck, out InfoCard card, out int points, out int pointsTotal, out bool ace, ref bool aceChange, out string visuelCartesCroupierL1, out string visuelCartesCroupierL2, out string visuelCartesCroupierL3, out string visuelCartesCroupierL4, out string visuelCartesCroupierL5)
         {
             pointsTotal = 0;
             ace = false;
@@ -217,7 +219,7 @@ namespace BlackjackManipulationsCartes
                 ace = true;
             }
 
-            CompterPoints(card, pointsTotal, out points);
+            CompterPoints(card, pointsTotal, out points, ref aceChange);
 
             pointsTotal = pointsTotal + points;
 
@@ -225,7 +227,7 @@ namespace BlackjackManipulationsCartes
 
             AfficherCartesCroupier(card, out visuelCartesCroupierL1, out visuelCartesCroupierL2, out visuelCartesCroupierL3, out visuelCartesCroupierL4, out visuelCartesCroupierL5);
         }
-        static void PiocherPremiereMainJoueur(ref List<InfoCard> deck, out InfoCard card1, out InfoCard card2, out int points1, out int points2, out int pointsTotal, out bool ace, out string visuelCartesJoueurL1, out string visuelCartesJoueurL2, out string visuelCartesJoueurL3, out string visuelCartesJoueurL4, out string visuelCartesJoueurL5)
+        static void PiocherPremiereMainJoueur(ref List<InfoCard> deck, out InfoCard card1, out InfoCard card2, out int points1, out int points2, out int pointsTotal, out bool ace, ref bool aceChange, out string visuelCartesJoueurL1, out string visuelCartesJoueurL2, out string visuelCartesJoueurL3, out string visuelCartesJoueurL4, out string visuelCartesJoueurL5)
         {
             pointsTotal = 0;
             ace = false;
@@ -240,7 +242,7 @@ namespace BlackjackManipulationsCartes
                 ace = true;
             }
 
-            CompterPoints(card1, pointsTotal, out points1);
+            CompterPoints(card1, pointsTotal, out points1, ref aceChange);
 
             alea = new Random();
             placeCarte = alea.Next(deck.Count - 1);
@@ -252,7 +254,7 @@ namespace BlackjackManipulationsCartes
                 ace = true;
             }
 
-            CompterPoints(card2, pointsTotal, out points2);
+            CompterPoints(card2, pointsTotal, out points2, ref aceChange);
 
             pointsTotal = points1 + points2;
 
@@ -260,7 +262,7 @@ namespace BlackjackManipulationsCartes
 
             AfficherCartesDebut(card1, card2, out visuelCartesJoueurL1, out visuelCartesJoueurL2, out visuelCartesJoueurL3, out visuelCartesJoueurL4, out visuelCartesJoueurL5);
         }
-        static void PiocherCarte(ref List<InfoCard> deck, int pointsTotal, bool burn, out InfoCard card, out int points, ref bool ace, out string visuelCarteL1, out string visuelCarteL2, out string visuelCarteL3, out string visuelCarteL4, out string visuelCarteL5)
+        static void PiocherCarte(ref List<InfoCard> deck, int pointsTotal, bool burn, out InfoCard card, out int points, ref bool ace, ref bool aceChange, out string visuelCarteL1, out string visuelCarteL2, out string visuelCarteL3, out string visuelCarteL4, out string visuelCarteL5)
         {
             card = default;
             bool vide = false;
@@ -285,7 +287,7 @@ namespace BlackjackManipulationsCartes
                     ace = true;
                 }
 
-                CompterPoints(card, pointsTotal, out points);
+                CompterPoints(card, pointsTotal, out points, ref aceChange);
 
                 AfficherCarte(card, out visuelCarteL1, out visuelCarteL2, out visuelCarteL3, out visuelCarteL4, out visuelCarteL5);
 
@@ -303,7 +305,7 @@ namespace BlackjackManipulationsCartes
             }
 
         }
-        static void CompterPoints(InfoCard card, int pointsTotal, out int points)
+        static void CompterPoints(InfoCard card, int pointsTotal, out int points, ref bool aceChange)
         {
             points = 0;
 
@@ -320,6 +322,7 @@ namespace BlackjackManipulationsCartes
                 else
                 {
                     points = 1;
+                    aceChange = true;
                 }
             }
             else
@@ -388,19 +391,19 @@ namespace BlackjackManipulationsCartes
 
             if (card.carteValeur == "10")
             {
-                visuelCarteL1 = " +----+ ";
-                visuelCarteL2 = " |    | ";
-                visuelCarteL3 = " | " + card.carteValeur + card.carteCouleur + "| ";
-                visuelCarteL4 = " |    | ";
-                visuelCarteL5 = " +----+ ";
+                visuelCarteL1 = "  +----+ ";
+                visuelCarteL2 = "  |    | ";
+                visuelCarteL3 = "  | " + card.carteValeur + card.carteCouleur + "| ";
+                visuelCarteL4 = "  |    | ";
+                visuelCarteL5 = "  +----+ ";
             }
             else
             {
-                visuelCarteL1 = " +----+ ";
-                visuelCarteL2 = " |    | ";
-                visuelCarteL3 = " | " + card.carteValeur + card.carteCouleur + " | ";
-                visuelCarteL4 = " |    | ";
-                visuelCarteL5 = " +----+ ";
+                visuelCarteL1 = "  +----+ ";
+                visuelCarteL2 = "  |    | ";
+                visuelCarteL3 = "  | " + card.carteValeur + card.carteCouleur + " | ";
+                visuelCarteL4 = "  |    | ";
+                visuelCarteL5 = "  +----+ ";
             }
         }
     }

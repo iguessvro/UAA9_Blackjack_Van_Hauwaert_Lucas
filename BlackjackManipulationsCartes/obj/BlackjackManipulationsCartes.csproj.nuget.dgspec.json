@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "H:\\UAA9\\UAA9_Blackjack_Van_Hauwaert_Lucas\\BlackjackManipulationsCartes\\BlackjackManipulationsCartes.csproj": {}
+    "C:\\Users\\lucas\\OneDrive\\ecole\\progra\\UAA9_Blackjack_Van_Hauwaert_Lucas\\BlackjackManipulationsCartes\\BlackjackManipulationsCartes.csproj": {}
   },
   "projects": {
-    "H:\\UAA9\\UAA9_Blackjack_Van_Hauwaert_Lucas\\BlackjackManipulationsCartes\\BlackjackManipulationsCartes.csproj": {
+    "C:\\Users\\lucas\\OneDrive\\ecole\\progra\\UAA9_Blackjack_Van_Hauwaert_Lucas\\BlackjackManipulationsCartes\\BlackjackManipulationsCartes.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "H:\\UAA9\\UAA9_Blackjack_Van_Hauwaert_Lucas\\BlackjackManipulationsCartes\\BlackjackManipulationsCartes.csproj",
+        "projectUniqueName": "C:\\Users\\lucas\\OneDrive\\ecole\\progra\\UAA9_Blackjack_Van_Hauwaert_Lucas\\BlackjackManipulationsCartes\\BlackjackManipulationsCartes.csproj",
         "projectName": "BlackjackManipulationsCartes",
-        "projectPath": "H:\\UAA9\\UAA9_Blackjack_Van_Hauwaert_Lucas\\BlackjackManipulationsCartes\\BlackjackManipulationsCartes.csproj",
-        "packagesPath": "C:\\Users\\250594\\.nuget\\packages\\",
-        "outputPath": "H:\\UAA9\\UAA9_Blackjack_Van_Hauwaert_Lucas\\BlackjackManipulationsCartes\\obj\\",
+        "projectPath": "C:\\Users\\lucas\\OneDrive\\ecole\\progra\\UAA9_Blackjack_Van_Hauwaert_Lucas\\BlackjackManipulationsCartes\\BlackjackManipulationsCartes.csproj",
+        "packagesPath": "C:\\Users\\lucas\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\lucas\\OneDrive\\ecole\\progra\\UAA9_Blackjack_Van_Hauwaert_Lucas\\BlackjackManipulationsCartes\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\250594\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\lucas\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -31,6 +31,7 @@
         },
         "frameworks": {
           "net10.0": {
+            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {}
           }
@@ -45,10 +46,11 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.100"
+        "SdkAnalysisLevel": "10.0.300"
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "imports": [
             "net461",
@@ -66,7 +68,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.300/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
