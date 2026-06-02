@@ -26,138 +26,168 @@ namespace BlackjackManipulationsCartes
             string visuelCarteL4 = "";
             string visuelCarteL5 = "";
             string carte = "";
-            string infoUser;
             int pointsTotal = 0;
+            int pointsTotalC = 0;
+            int pointsTotalJ = 0;
             int points = 0;
             int points1 = 0;
             int points2 = 0;
-            bool burn = false;
+            int joueurPosX = 0;
+            int joueurPosY = 15;
+            int cardHeight = 10;
+            int clearWidth = 100;
+            bool bust;
             bool ace = false;
             bool aceChange = false;
+            bool blackjack;
             List<InfoCard> deck = new List<InfoCard>();
-            InfoCard croupierHand = default;
-            InfoCard playerHand = default;
-            InfoCard playerHand2 = default;
             InfoCard card;
             InfoCard card1;
             InfoCard card2;
-
-            Console.WriteLine("BLACKJACK");
-
-            CreerDeck(cartesValeurs, cartesCouleurs, carte, ref deck);
-            ShuffleDeck(ref deck);
-
             ConsoleKeyInfo key = new ConsoleKeyInfo('\0', ConsoleKey.NoName, false, false, false);
-
-            PiocherPremiereMainCroupier(ref deck, out card, out points1, out pointsTotal, out ace, ref aceChange, out visuelCartesCroupierL1, out visuelCartesCroupierL2, out visuelCartesCroupierL3, out visuelCartesCroupierL4, out visuelCartesCroupierL5);
-            Console.WriteLine(visuelCartesCroupierL1);
-            Console.WriteLine(visuelCartesCroupierL2);
-            Console.WriteLine(visuelCartesCroupierL3);
-            Console.WriteLine(visuelCartesCroupierL4);
-            Console.WriteLine(visuelCartesCroupierL5);
-
-            pointsTotal = pointsTotal + points;
-
-            Console.WriteLine(" points totaux = " + pointsTotal + "\n");
-
-            Console.WriteLine("\n \n \n");
-
-            PiocherPremiereMainJoueur(ref deck, out card1, out card2, out points1, out points2, out pointsTotal, out ace, ref aceChange, out visuelCartesJoueurL1, out visuelCartesJoueurL2, out visuelCartesJoueurL3, out visuelCartesJoueurL4, out visuelCartesJoueurL5);
-            Console.WriteLine(visuelCartesJoueurL1);
-            Console.WriteLine(visuelCartesJoueurL2);
-            Console.WriteLine(visuelCartesJoueurL3);
-            Console.WriteLine(visuelCartesJoueurL4);
-            Console.WriteLine(visuelCartesJoueurL5);
-
-            pointsTotal = pointsTotal + points;
-
-            Console.WriteLine(" points totaux = " + pointsTotal + "\n");
-
-
+            ConsoleKeyInfo key2 = new ConsoleKeyInfo('\0', ConsoleKey.NoName, false, false, false);
 
             do
             {
-                Console.WriteLine("\nPress on a key (h to hit, s to stand)");
-                key = Console.ReadKey(true);
+                pointsTotal = 0;
+                points = 0;
+                bust = false;
+                Console.Clear();
 
-                if (key.KeyChar == 'h')
+                Console.WriteLine("BLACKJACK");
+
+                CreerDeck(cartesValeurs, cartesCouleurs, carte, ref deck);
+                ShuffleDeck(ref deck);
+
+
+                PiocherPremiereMainCroupier(ref deck, out card, out points1, out pointsTotal, out ace, ref aceChange, out visuelCartesCroupierL1, out visuelCartesCroupierL2, out visuelCartesCroupierL3, out visuelCartesCroupierL4, out visuelCartesCroupierL5);
+                Console.WriteLine(visuelCartesCroupierL1);
+                Console.WriteLine(visuelCartesCroupierL2);
+                Console.WriteLine(visuelCartesCroupierL3);
+                Console.WriteLine(visuelCartesCroupierL4);
+                Console.WriteLine(visuelCartesCroupierL5);
+
+                pointsTotalC = pointsTotal + points;
+
+                Console.WriteLine(" points totaux = " + pointsTotal + "\n");
+
+                Console.WriteLine("\n \n \n");
+
+                PiocherPremiereMainJoueur(ref deck, out card1, out card2, out points1, out points2, out pointsTotal, out ace, ref aceChange, out visuelCartesJoueurL1, out visuelCartesJoueurL2, out visuelCartesJoueurL3, out visuelCartesJoueurL4, out visuelCartesJoueurL5);
+                Console.WriteLine(visuelCartesJoueurL1);
+                Console.WriteLine(visuelCartesJoueurL2);
+                Console.WriteLine(visuelCartesJoueurL3);
+                Console.WriteLine(visuelCartesJoueurL4);
+                Console.WriteLine(visuelCartesJoueurL5);
+
+                pointsTotalJ = pointsTotal + points;
+
+                if (pointsTotalJ == 21)
                 {
-                    PiocherCarte(ref deck, pointsTotal, burn, out card, out points, ref ace, ref aceChange, out visuelCarteL1, out visuelCarteL2, out visuelCarteL3, out visuelCarteL4, out visuelCarteL5);
+                    blackjack = true;
+                }
 
-                    pointsTotal = pointsTotal + points;
+                Console.WriteLine(" points totaux = " + pointsTotalJ + "\n");
 
-                    visuelCartesJoueurL1 = visuelCartesJoueurL1 + visuelCarteL1;
-                    visuelCartesJoueurL2 = visuelCartesJoueurL2 + visuelCarteL2;
-                    visuelCartesJoueurL3 = visuelCartesJoueurL3 + visuelCarteL3;
-                    visuelCartesJoueurL4 = visuelCartesJoueurL4 + visuelCarteL4;
-                    visuelCartesJoueurL5 = visuelCartesJoueurL5 + visuelCarteL5;
+                do
+                { 
 
-                    Console.WriteLine(visuelCartesJoueurL1);
-                    Console.WriteLine(visuelCartesJoueurL2);
-                    Console.WriteLine(visuelCartesJoueurL3);
-                    Console.WriteLine(visuelCartesJoueurL4);
-                    Console.WriteLine(visuelCartesJoueurL5);
-
-                    if (ace == true && pointsTotal > 21 && aceChange == false)
-                    {
-                        pointsTotal = pointsTotal - 10;
-                        aceChange = true;
-
-                    }
-
-                    if (pointsTotal > 21)
-                    {
-                        burn = true;
-
-                        Console.WriteLine("\nyou burned\n");
-                    }
-
-                    Console.WriteLine("points de la carte = " + points + "\npoints totaux = " + pointsTotal + "\n");
-                    /*
-                    Console.WriteLine("Press h to hit again or s to stand");
+                    Console.WriteLine("\nPress on a key (h to hit, s to stand)");
                     key = Console.ReadKey(true);
 
-                    do
+                    if (key.KeyChar == 'h')
                     {
-                        PiocherCarte(ref deck, pointsTotal, burn, out card, out points, ref ace);
+                        PiocherCarte(ref deck, pointsTotal, bust, out card, out points, ref ace, ref aceChange, out visuelCarteL1, out visuelCarteL2, out visuelCarteL3, out visuelCarteL4, out visuelCarteL5);
 
-                        pointsTotal = pointsTotal + points;
+                        pointsTotalJ = pointsTotalJ + points;
 
-                        if (ace == true && pointsTotal > 21 && aceChange == false)
+                        visuelCartesJoueurL1 = visuelCartesJoueurL1 + visuelCarteL1;
+                        visuelCartesJoueurL2 = visuelCartesJoueurL2 + visuelCarteL2;
+                        visuelCartesJoueurL3 = visuelCartesJoueurL3 + visuelCarteL3;
+                        visuelCartesJoueurL4 = visuelCartesJoueurL4 + visuelCarteL4;
+                        visuelCartesJoueurL5 = visuelCartesJoueurL5 + visuelCarteL5;
+
+                        for (int iErase = 0; iErase < cardHeight; iErase ++)
                         {
-                            pointsTotal = pointsTotal - 10;
+                            Console.SetCursorPosition(joueurPosX, joueurPosY);
+                            Console.Write(new string(' ', clearWidth));
+                        }
+
+                        for (int iCard = 0; iCard < cardHeight; iCard ++)
+                        {
+                            Console.SetCursorPosition(joueurPosX, joueurPosY);
+                            Console.WriteLine(visuelCartesJoueurL1);
+                            Console.WriteLine(visuelCartesJoueurL2);
+                            Console.WriteLine(visuelCartesJoueurL3);
+                            Console.WriteLine(visuelCartesJoueurL4);
+                            Console.WriteLine(visuelCartesJoueurL5);
+                        }
+
+                        if (ace == true && pointsTotalJ > 21 && aceChange == false)
+                        {
+                            pointsTotalJ = pointsTotalJ - 10;
                             aceChange = true;
                         }
 
-                        if (pointsTotal > 21)
+                        if (pointsTotalJ > 21)
                         {
-                            burn = true;
-
-                            Console.WriteLine("\nyou burned\n");
+                            bust = true;
                         }
 
-                        Console.WriteLine("points de la carte = " + points + "\npoints totaux = " + pointsTotal + "\n");
+                        Console.WriteLine("points de la carte = " + points + "\npoints totaux = " + pointsTotalJ + "\n");
 
-                        Console.WriteLine("Press h to hit again or s to stand");
-                        key = Console.ReadKey(true);
+                        if (bust)
+                        {
+                            for (int iErase = 0; iErase < 5; iErase ++)
+                            {
+                                Console.SetCursorPosition(0, 20 + iErase);
+                                Console.Write(new string(' ', clearWidth));
+                            }
 
-                    } while (key.KeyChar == 'h' && !burn);
+                            for (int iText = 0; iText < 5; iText ++)
+                            {
+                                Console.SetCursorPosition(0, 20);
+                                Console.WriteLine("\nyou bust\n");
+                            }
+                        }
+                    }
+                    else if (key.KeyChar == 's')
+                    {
+                        Console.WriteLine("\nyou stood");
+                    }
+                    else
+                    {
+                        Console.WriteLine("\ninput error");
+                    }
 
-                    Console.WriteLine("points de la carte = " + points + "\npoints totaux = " + pointsTotal + "\n");*/
-                }
-                else if (key.KeyChar == 's')
+                } while (key.KeyChar != 's' && !bust);
+
+                PiocherCarte(ref deck, pointsTotal, bust, out card, out points, ref ace, ref aceChange, out visuelCarteL1, out visuelCarteL2, out visuelCarteL3, out visuelCarteL4, out visuelCarteL5);
+
+                pointsTotalC = pointsTotalC + points;
+
+                for (int iErase = 0; iErase < 5; iErase ++)
                 {
-                    Console.WriteLine("\nyou stood");
+                    Console.SetCursorPosition(10, 3 + iErase);
+                    Console.Write(new string(' ', clearWidth));
                 }
-                else
+
+                for (int iCard = 0; iCard < 5; iCard ++)
                 {
-                    Console.WriteLine("\ninput error");
+                    Console.SetCursorPosition(10, 3 + iCard);
+                    Console.WriteLine(visuelCarteL1);
+                    /*Console.WriteLine(visuelCarteL2);
+                    Console.WriteLine(visuelCarteL3);
+                    Console.WriteLine(visuelCarteL4);
+                    Console.WriteLine(visuelCarteL5);*/
                 }
 
-            } while (key.KeyChar != 's' && !burn);
+                Console.SetCursorPosition(0, Console.CursorTop + 1);
 
-            //CompterPointsTest(ref deck, out points);
-            //Console.WriteLine(points);
+                Console.WriteLine("Do you want to play again ?");
+                key2 = Console.ReadKey(true);
+
+            } while (key2.KeyChar == 'y');
         }
         static void CreerDeck(string[] cartesValeurs, string[] cartesCouleurs, string carte, ref List<InfoCard> deck)
         {
@@ -244,6 +274,8 @@ namespace BlackjackManipulationsCartes
 
             CompterPoints(card1, pointsTotal, out points1, ref aceChange);
 
+            pointsTotal = pointsTotal + points1;
+
             alea = new Random();
             placeCarte = alea.Next(deck.Count - 1);
             card2 = deck[placeCarte];
@@ -256,7 +288,7 @@ namespace BlackjackManipulationsCartes
 
             CompterPoints(card2, pointsTotal, out points2, ref aceChange);
 
-            pointsTotal = points1 + points2;
+            pointsTotal = pointsTotal + points2;
 
             Console.WriteLine(" Votre main");
 
@@ -265,7 +297,6 @@ namespace BlackjackManipulationsCartes
         static void PiocherCarte(ref List<InfoCard> deck, int pointsTotal, bool burn, out InfoCard card, out int points, ref bool ace, ref bool aceChange, out string visuelCarteL1, out string visuelCarteL2, out string visuelCarteL3, out string visuelCarteL4, out string visuelCarteL5)
         {
             card = default;
-            bool vide = false;
             points = 0;
             visuelCarteL1 = "";
             visuelCarteL2 = "";
@@ -301,7 +332,6 @@ namespace BlackjackManipulationsCartes
             else
             {
                 Console.WriteLine("The deck is empty");
-                vide = true;
             }
 
         }
