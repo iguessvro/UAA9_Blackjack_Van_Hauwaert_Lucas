@@ -25,6 +25,11 @@ namespace BlackjackManipulationsCartes
             string visuelCarteL3 = "";
             string visuelCarteL4 = "";
             string visuelCarteL5 = "";
+            string visuelCarteCacheeL1 = "  +----+ ";
+            string visuelCarteCacheeL2 = "  |    | ";
+            string visuelCarteCacheeL3 = "  | ?? | ";
+            string visuelCarteCacheeL4 = "  |    | ";
+            string visuelCarteCacheeL5 = "  +----+ ";
             string carte = "";
             int pointsTotal = 0;
             int pointsTotalC = 0;
@@ -34,6 +39,8 @@ namespace BlackjackManipulationsCartes
             int points2 = 0;
             int joueurPosX = 0;
             int joueurPosY = 15;
+            int croupierPosX = 0;
+            int croupierPosY = 3;
             int cardHeight = 10;
             int clearWidth = 100;
             bool bust;
@@ -61,11 +68,11 @@ namespace BlackjackManipulationsCartes
 
 
                 PiocherPremiereMainCroupier(ref deck, out card, out points1, out pointsTotal, out ace, ref aceChange, out visuelCartesCroupierL1, out visuelCartesCroupierL2, out visuelCartesCroupierL3, out visuelCartesCroupierL4, out visuelCartesCroupierL5);
-                Console.WriteLine(visuelCartesCroupierL1);
-                Console.WriteLine(visuelCartesCroupierL2);
-                Console.WriteLine(visuelCartesCroupierL3);
-                Console.WriteLine(visuelCartesCroupierL4);
-                Console.WriteLine(visuelCartesCroupierL5);
+                Console.WriteLine(visuelCartesCroupierL1 + visuelCarteCacheeL1);
+                Console.WriteLine(visuelCartesCroupierL2 + visuelCarteCacheeL2);
+                Console.WriteLine(visuelCartesCroupierL3 + visuelCarteCacheeL3);
+                Console.WriteLine(visuelCartesCroupierL4 + visuelCarteCacheeL4); 
+                Console.WriteLine(visuelCartesCroupierL5 + visuelCarteCacheeL5);
 
                 pointsTotalC = pointsTotal + points;
 
@@ -90,7 +97,7 @@ namespace BlackjackManipulationsCartes
                 Console.WriteLine(" points totaux = " + pointsTotalJ + "\n");
 
                 do
-                { 
+                {
 
                     Console.WriteLine("\nPress on a key (h to hit, s to stand)");
                     key = Console.ReadKey(true);
@@ -107,13 +114,13 @@ namespace BlackjackManipulationsCartes
                         visuelCartesJoueurL4 = visuelCartesJoueurL4 + visuelCarteL4;
                         visuelCartesJoueurL5 = visuelCartesJoueurL5 + visuelCarteL5;
 
-                        for (int iErase = 0; iErase < cardHeight; iErase ++)
+                        for (int iErase = 0; iErase < cardHeight; iErase++)
                         {
                             Console.SetCursorPosition(joueurPosX, joueurPosY);
                             Console.Write(new string(' ', clearWidth));
                         }
 
-                        for (int iCard = 0; iCard < cardHeight; iCard ++)
+                        for (int iCard = 0; iCard < cardHeight; iCard++)
                         {
                             Console.SetCursorPosition(joueurPosX, joueurPosY);
                             Console.WriteLine(visuelCartesJoueurL1);
@@ -138,13 +145,13 @@ namespace BlackjackManipulationsCartes
 
                         if (bust)
                         {
-                            for (int iErase = 0; iErase < 5; iErase ++)
+                            for (int iErase = 0; iErase < 5; iErase++)
                             {
                                 Console.SetCursorPosition(0, 20 + iErase);
                                 Console.Write(new string(' ', clearWidth));
                             }
 
-                            for (int iText = 0; iText < 5; iText ++)
+                            for (int iText = 0; iText < 5; iText++)
                             {
                                 Console.SetCursorPosition(0, 20);
                                 Console.WriteLine("\nyou bust\n");
@@ -166,23 +173,58 @@ namespace BlackjackManipulationsCartes
 
                 pointsTotalC = pointsTotalC + points;
 
-                for (int iErase = 0; iErase < 5; iErase ++)
+                visuelCartesCroupierL1 = visuelCartesCroupierL1 + visuelCarteL1;
+                visuelCartesCroupierL2 = visuelCartesCroupierL2 + visuelCarteL2;
+                visuelCartesCroupierL3 = visuelCartesCroupierL3 + visuelCarteL3;
+                visuelCartesCroupierL4 = visuelCartesCroupierL4 + visuelCarteL4;
+                visuelCartesCroupierL5 = visuelCartesCroupierL5 + visuelCarteL5;
+
+                for (int iErase = 0; iErase < 5; iErase++)
                 {
-                    Console.SetCursorPosition(10, 3 + iErase);
+                    Console.SetCursorPosition(croupierPosX, croupierPosY);
                     Console.Write(new string(' ', clearWidth));
                 }
 
-                for (int iCard = 0; iCard < 5; iCard ++)
+                for (int iCard = 0; iCard < 5; iCard++)
                 {
-                    Console.SetCursorPosition(10, 3 + iCard);
-                    Console.WriteLine(visuelCarteL1);
-                    /*Console.WriteLine(visuelCarteL2);
-                    Console.WriteLine(visuelCarteL3);
-                    Console.WriteLine(visuelCarteL4);
-                    Console.WriteLine(visuelCarteL5);*/
+                    Console.SetCursorPosition(croupierPosX, croupierPosY);
+                    Console.WriteLine(visuelCartesCroupierL1);
+                    Console.WriteLine(visuelCartesCroupierL2);
+                    Console.WriteLine(visuelCartesCroupierL3);
+                    Console.WriteLine(visuelCartesCroupierL4);
+                    Console.WriteLine(visuelCartesCroupierL5);
+                } 
+
+                /*
+                Console.SetCursorPosition(8, 3);
+                Console.WriteLine(visuelCarteL1);
+
+                Console.SetCursorPosition(8, 4);
+                Console.WriteLine(visuelCarteL2);
+
+                Console.SetCursorPosition(8, 5);
+                Console.WriteLine(visuelCarteL3);
+
+                Console.SetCursorPosition(8, 6);
+                Console.WriteLine(visuelCarteL4);
+
+                Console.SetCursorPosition(8, 7);
+                Console.WriteLine(visuelCarteL5);*/
+
+                Console.SetCursorPosition(0, 8);
+                Console.Write(new string(' ', clearWidth));
+                Console.SetCursorPosition(0, 8);
+                Console.WriteLine("points totaux = " + pointsTotalC + "\n");
+
+                if (pointsTotalC < 17)
+                {
+                    //Console.SetCursorPosition(16, 3);
+                    PiocherCarte(ref deck, pointsTotal, bust, out card, out points, ref ace, ref aceChange, out visuelCarteL1, out visuelCarteL2, out visuelCarteL3, out visuelCarteL4, out visuelCarteL5);
+                    pointsTotalC = pointsTotalC + points;
                 }
 
-                Console.SetCursorPosition(0, Console.CursorTop + 1);
+                Console.SetCursorPosition(0, Console.WindowHeight - 1);
+                //Console.SetCursorPosition(0, Console.CursorTop + 1);
 
                 Console.WriteLine("Do you want to play again ?");
                 key2 = Console.ReadKey(true);
@@ -400,19 +442,19 @@ namespace BlackjackManipulationsCartes
         {
             if (card.carteValeur == "10")
             {
-                visuelCartesCroupierL1 = " +----+   +----+ ";
-                visuelCartesCroupierL2 = " |    |   |    | ";
-                visuelCartesCroupierL3 = " | " + card.carteValeur + card.carteCouleur + "|   | ?? | ";
-                visuelCartesCroupierL4 = " |    |   |    | ";
-                visuelCartesCroupierL5 = " +----+   +----+ ";
+                visuelCartesCroupierL1 = " +----+ ";
+                visuelCartesCroupierL2 = " |    | ";
+                visuelCartesCroupierL3 = " | " + card.carteValeur + card.carteCouleur + "| ";
+                visuelCartesCroupierL4 = " |    | ";
+                visuelCartesCroupierL5 = " +----+ ";
             }
             else
             {
-                visuelCartesCroupierL1 = " +----+   +----+ ";
-                visuelCartesCroupierL2 = " |    |   |    | ";
-                visuelCartesCroupierL3 = " | " + card.carteValeur + card.carteCouleur + " |   | ?? | ";
-                visuelCartesCroupierL4 = " |    |   |    | ";
-                visuelCartesCroupierL5 = " +----+   +----+ ";
+                visuelCartesCroupierL1 = " +----+ ";
+                visuelCartesCroupierL2 = " |    | ";
+                visuelCartesCroupierL3 = " | " + card.carteValeur + card.carteCouleur + " | ";
+                visuelCartesCroupierL4 = " |    | ";
+                visuelCartesCroupierL5 = " +----+ ";
             }
         }
         static void AfficherCarte(InfoCard card, out string visuelCarteL1, out string visuelCarteL2, out string visuelCarteL3, out string visuelCarteL4, out string visuelCarteL5)
