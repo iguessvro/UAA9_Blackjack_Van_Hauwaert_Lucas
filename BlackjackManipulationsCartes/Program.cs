@@ -43,7 +43,8 @@ namespace BlackjackManipulationsCartes
             int croupierPosY = 3;
             int cardHeight = 10;
             int clearWidth = 100;
-            bool bust;
+            bool bustJ;
+            bool bustC;
             bool ace = false;
             bool aceChange = false;
             bool blackjack;
@@ -56,10 +57,12 @@ namespace BlackjackManipulationsCartes
 
             do
             {
+                Console.SetCursorPosition(0, 0);
+                Console.Clear();
                 pointsTotal = 0;
                 points = 0;
-                bust = false;
-                Console.Clear();
+                bustJ = false;
+                bustC = false;
 
                 Console.WriteLine("BLACKJACK");
 
@@ -104,7 +107,7 @@ namespace BlackjackManipulationsCartes
 
                     if (key.KeyChar == 'h')
                     {
-                        PiocherCarte(ref deck, pointsTotal, bust, out card, out points, ref ace, ref aceChange, out visuelCarteL1, out visuelCarteL2, out visuelCarteL3, out visuelCarteL4, out visuelCarteL5);
+                        PiocherCarte(ref deck, pointsTotal, bustJ, out card, out points, ref ace, ref aceChange, out visuelCarteL1, out visuelCarteL2, out visuelCarteL3, out visuelCarteL4, out visuelCarteL5);
 
                         pointsTotalJ = pointsTotalJ + points;
 
@@ -138,12 +141,12 @@ namespace BlackjackManipulationsCartes
 
                         if (pointsTotalJ > 21)
                         {
-                            bust = true;
+                            bustJ = true;
                         }
 
                         Console.WriteLine("points de la carte = " + points + "\npoints totaux = " + pointsTotalJ + "\n");
 
-                        if (bust)
+                        if (bustJ)
                         {
                             for (int iErase = 0; iErase < 5; iErase++)
                             {
@@ -167,9 +170,9 @@ namespace BlackjackManipulationsCartes
                         Console.WriteLine("\ninput error");
                     }
 
-                } while (key.KeyChar != 's' && !bust);
+                } while (key.KeyChar != 's' && !bustJ);
 
-                PiocherCarte(ref deck, pointsTotal, bust, out card, out points, ref ace, ref aceChange, out visuelCarteL1, out visuelCarteL2, out visuelCarteL3, out visuelCarteL4, out visuelCarteL5);
+                PiocherCarte(ref deck, pointsTotal, bustJ, out card, out points, ref ace, ref aceChange, out visuelCarteL1, out visuelCarteL2, out visuelCarteL3, out visuelCarteL4, out visuelCarteL5);
 
                 pointsTotalC = pointsTotalC + points;
 
@@ -195,36 +198,65 @@ namespace BlackjackManipulationsCartes
                     Console.WriteLine(visuelCartesCroupierL5);
                 } 
 
-                /*
-                Console.SetCursorPosition(8, 3);
-                Console.WriteLine(visuelCarteL1);
-
-                Console.SetCursorPosition(8, 4);
-                Console.WriteLine(visuelCarteL2);
-
-                Console.SetCursorPosition(8, 5);
-                Console.WriteLine(visuelCarteL3);
-
-                Console.SetCursorPosition(8, 6);
-                Console.WriteLine(visuelCarteL4);
-
-                Console.SetCursorPosition(8, 7);
-                Console.WriteLine(visuelCarteL5);*/
-
                 Console.SetCursorPosition(0, 8);
                 Console.Write(new string(' ', clearWidth));
                 Console.SetCursorPosition(0, 8);
                 Console.WriteLine("points totaux = " + pointsTotalC + "\n");
 
-                if (pointsTotalC < 17)
+                do
                 {
-                    //Console.SetCursorPosition(16, 3);
-                    PiocherCarte(ref deck, pointsTotal, bust, out card, out points, ref ace, ref aceChange, out visuelCarteL1, out visuelCarteL2, out visuelCarteL3, out visuelCarteL4, out visuelCarteL5);
+                    PiocherCarte(ref deck, pointsTotal, bustJ, out card, out points, ref ace, ref aceChange, out visuelCarteL1, out visuelCarteL2, out visuelCarteL3, out visuelCarteL4, out visuelCarteL5);
                     pointsTotalC = pointsTotalC + points;
+
+                    visuelCartesCroupierL1 = visuelCartesCroupierL1 + visuelCarteL1;
+                    visuelCartesCroupierL2 = visuelCartesCroupierL2 + visuelCarteL2;
+                    visuelCartesCroupierL3 = visuelCartesCroupierL3 + visuelCarteL3;
+                    visuelCartesCroupierL4 = visuelCartesCroupierL4 + visuelCarteL4;
+                    visuelCartesCroupierL5 = visuelCartesCroupierL5 + visuelCarteL5;
+
+                    for (int iErase = 0; iErase < 5; iErase++)
+                    {
+                        Console.SetCursorPosition(croupierPosX, croupierPosY);
+                        Console.Write(new string(' ', clearWidth));
+                    }
+
+                    for (int iCard = 0; iCard < 5; iCard++)
+                    {
+                        Console.SetCursorPosition(croupierPosX, croupierPosY);
+                        Console.WriteLine(visuelCartesCroupierL1);
+                        Console.WriteLine(visuelCartesCroupierL2);
+                        Console.WriteLine(visuelCartesCroupierL3);
+                        Console.WriteLine(visuelCartesCroupierL4);
+                        Console.WriteLine(visuelCartesCroupierL5);
+                    }
+                    
+                    Console.SetCursorPosition(0, 8);
+                    Console.Write(new string(' ', clearWidth));
+                    Console.SetCursorPosition(0, 8);
+                    Console.WriteLine("points totaux = " + pointsTotalC + "\n");
                 }
+                while (pointsTotalC < 17);
 
                 Console.SetCursorPosition(0, Console.WindowHeight - 1);
                 //Console.SetCursorPosition(0, Console.CursorTop + 1);
+
+                if (pointsTotalC > 21)
+                {
+                    bustC = true;
+                }
+
+                if (bustJ || (pointsTotalJ < pointsTotalC && !bustC))
+                {
+                    Console.WriteLine("You lost!\n");
+                }
+                else if (pointsTotalJ == pointsTotalC)
+                {
+                    Console.WriteLine("Draw!\n");
+                }
+                else
+                {
+                    Console.WriteLine("You won!\n");
+                }
 
                 Console.WriteLine("Do you want to play again ?");
                 key2 = Console.ReadKey(true);
